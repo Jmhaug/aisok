@@ -1,3 +1,5 @@
+"use client";
+
 import { motion } from "motion/react";
 
 /* ── Icons ── */
@@ -118,7 +120,6 @@ function FeatureItem({ icon, title, description }) {
 function ImageCard({ gradient, title, subtitle }) {
   return (
     <div style={{ width: "100%", maxWidth: 420 }}>
-      {/* Image */}
       <div
         style={{
           width: "100%",
@@ -128,7 +129,6 @@ function ImageCard({ gradient, title, subtitle }) {
           background: gradient,
         }}
       />
-      {/* Footer */}
       <div
         className="flex items-end justify-between"
         style={{ paddingTop: 20, paddingBottom: 4 }}
@@ -165,7 +165,6 @@ export default function Features() {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.7, ease: "easeOut" }}
         >
-          {/* Left — Image Card */}
           <div style={{ flexShrink: 0, width: 420 }}>
             <ImageCard
               gradient="radial-gradient(ellipse at 50% 45%, rgba(160,100,255,0.7) 0%, rgba(100,40,200,0.5) 35%, rgba(20,5,40,0.95) 70%, #0a0a0a 100%)"
@@ -174,15 +173,12 @@ export default function Features() {
             />
           </div>
 
-          {/* Right — Text Content */}
           <div style={{ flex: 1, paddingTop: 10 }}>
-            {/* Tag */}
             <div className="flex items-center" style={{ gap: 8, marginBottom: 14 }}>
               <span style={{ color: "#a78bfa" }}><SparkleSmall /></span>
               <span style={{ fontSize: 14, fontWeight: 500, color: "#a78bfa" }}>Workflow Automation</span>
             </div>
 
-            {/* Heading */}
             <h2
               className="font-sans"
               style={{
@@ -200,7 +196,6 @@ export default function Features() {
               Made Simple!
             </h2>
 
-            {/* Feature Grid */}
             <div className="flex" style={{ gap: 48 }}>
               <FeatureItem
                 icon={<TaskIcon />}
@@ -216,7 +211,6 @@ export default function Features() {
           </div>
         </motion.div>
 
-        {/* ════════ Spacer ════════ */}
         <div style={{ height: 100 }} />
 
         {/* ════════ Row 2: Text Left, Image Right ════════ */}
@@ -228,15 +222,12 @@ export default function Features() {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.7, ease: "easeOut" }}
         >
-          {/* Left — Text Content */}
           <div style={{ flex: 1, paddingTop: 10 }}>
-            {/* Tag */}
             <div className="flex items-center" style={{ gap: 8, marginBottom: 14 }}>
               <span style={{ color: "#a78bfa" }}><SparkleSmall /></span>
               <span style={{ fontSize: 14, fontWeight: 500, color: "#a78bfa" }}>Tackle Your Daily To-Dos</span>
             </div>
 
-            {/* Heading */}
             <h2
               className="font-sans"
               style={{
@@ -254,7 +245,6 @@ export default function Features() {
               schedule to writing emails
             </h2>
 
-            {/* Feature Grid */}
             <div className="flex" style={{ gap: 48, maxWidth: 500 }}>
               <FeatureItem
                 icon={<DocIcon />}
@@ -269,7 +259,6 @@ export default function Features() {
             </div>
           </div>
 
-          {/* Right — Image Card */}
           <div style={{ flexShrink: 0, width: 420 }}>
             <ImageCard
               gradient="linear-gradient(135deg, rgba(180,120,60,0.8) 0%, rgba(220,160,80,0.7) 30%, rgba(200,140,70,0.6) 50%, rgba(160,100,50,0.5) 70%, rgba(40,25,15,0.9) 100%)"

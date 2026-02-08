@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useRef } from "react";
 import Hls from "hls.js";
 
@@ -22,7 +24,6 @@ export default function HlsVideo({ src, className, ...props }) {
         hls.destroy();
       };
     } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
-      // Native HLS support (Safari)
       video.src = src;
       video.addEventListener("loadedmetadata", () => {
         video.play().catch(() => {});

@@ -1,3 +1,5 @@
+"use client";
+
 import { motion } from "motion/react";
 import HlsVideo from "./HlsVideo";
 
@@ -37,15 +39,15 @@ function ChevronRight() {
 const cards = [
   {
     video: TASK_AUTOMATION_VIDEO,
-    title: "Task Automation",
+    title: "Oppgaveautomatisering",
     description:
-      "We simplify your work by turning manual tasks into automated ones!",
+      "Vi forenkler arbeidet ditt ved å gjøre manuelle oppgaver om til automatiserte!",
   },
   {
     video: SMART_WORKFLOWS_VIDEO,
-    title: "Smart Workflows",
+    title: "Smarte arbeidsflyter",
     description:
-      "Create smart workflows that simplify complex tasks across different tools.",
+      "Lag smarte arbeidsflyter som forenkler komplekse oppgaver på tvers av ulike verktøy.",
   },
 ];
 
@@ -92,13 +94,13 @@ export default function Services() {
               margin: 0,
             }}
           >
-            Smarter Services,
+            Smartere tjenester,
             <br />
             <span
               className="font-serif"
               style={{ fontStyle: "italic", color: "rgba(255,255,255,0.85)" }}
             >
-              Built with AI
+              Bygget med AI
             </span>
           </h2>
 
@@ -111,9 +113,9 @@ export default function Services() {
               color: "rgba(255,255,255,0.4)",
             }}
           >
-            Discover all the tools you need to streamline your operations and
-            supercharge your productivity! With our solutions, you can easily
-            automate tasks.
+            Oppdag alle verktøyene du trenger for å effektivisere driften
+            og superlade produktiviteten din! Med våre løsninger kan du enkelt
+            automatisere oppgaver.
           </p>
 
           {/* Arrow Buttons */}
@@ -131,7 +133,7 @@ export default function Services() {
                 justifyContent: "center",
                 cursor: "pointer",
               }}
-              aria-label="Previous"
+              aria-label="Forrige"
             >
               <ChevronLeft />
             </button>
@@ -148,7 +150,7 @@ export default function Services() {
                 justifyContent: "center",
                 cursor: "pointer",
               }}
-              aria-label="Next"
+              aria-label="Neste"
             >
               <ChevronRight />
             </button>
@@ -186,7 +188,6 @@ export default function Services() {
                 ease: "easeOut",
               }}
             >
-              {/* Video — fills entire card */}
               <HlsVideo
                 src={card.video}
                 style={{
@@ -198,7 +199,6 @@ export default function Services() {
                 }}
               />
 
-              {/* Gradient overlay for text readability */}
               <div
                 style={{
                   position: "absolute",
@@ -208,7 +208,6 @@ export default function Services() {
                 }}
               />
 
-              {/* Content — overlaid at bottom */}
               <div
                 style={{
                   position: "absolute",
@@ -256,7 +255,7 @@ export default function Services() {
                     color: "#fff",
                   }}
                 >
-                  Get started
+                  Kom i gang
                 </a>
               </div>
             </motion.div>
