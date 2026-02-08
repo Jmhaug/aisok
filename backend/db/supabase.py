@@ -9,7 +9,11 @@ _client = None
 def get_client():
     global _client
     if _client is None and settings.supabase_url and settings.supabase_key:
-        _client = create_client(settings.supabase_url, settings.supabase_key)
+        try:
+            _client = create_client(settings.supabase_url, settings.supabase_key)
+        except Exception:
+            # Invalid or placeholder credentials — skip Supabase (dev mode)
+            return None
     return _client
 
 
