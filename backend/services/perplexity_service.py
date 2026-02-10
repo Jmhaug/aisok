@@ -4,12 +4,19 @@ import httpx
 from config import settings
 
 PERPLEXITY_API_URL = "https://api.perplexity.ai/chat/completions"
+PERPLEXITY_MODEL = "sonar"
 
 
 async def query_perplexity(query: str) -> dict:
     """Send a query to Perplexity Sonar and return the response."""
     if not settings.perplexity_api_key:
-        return {"query": query, "response": "", "error": "Perplexity API key not configured"}
+        return {
+            "query": query,
+            "model": PERPLEXITY_MODEL,
+            "response": "",
+            "citations": [],
+            "error": "Perplexity API key not configured",
+        }
 
     try:
         async with httpx.AsyncClient(timeout=30) as client:
@@ -20,7 +27,7 @@ async def query_perplexity(query: str) -> dict:
                     "Content-Type": "application/json",
                 },
                 json={
-                    "model": "sonar",
+                    "model": PERPLEXITY_MODEL,
                     "messages": [
                         {
                             "role": "system",
@@ -38,12 +45,19 @@ async def query_perplexity(query: str) -> dict:
 
         return {
             "query": query,
+            "model": PERPLEXITY_MODEL,
             "response": text,
             "citations": citations,
             "error": None,
         }
     except Exception as e:
-        return {"query": query, "response": "", "citations": [], "error": str(e)}
+        return {
+            "query": query,
+            "model": PERPLEXITY_MODEL,
+            "response": "",
+            "citations": [],
+            "error": str(e),
+        }
 
 
 async def batch_query(queries: list[str]) -> list[dict]:

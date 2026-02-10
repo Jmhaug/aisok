@@ -3,7 +3,6 @@
 import { useState } from "react";
 import {
   Search,
-  Filter,
   ExternalLink,
   MessageSquare,
   ThumbsUp,
@@ -25,15 +24,24 @@ export default function MentionsPage() {
   const [platformFilter, setPlatformFilter] = useState("all");
   const [brandFilter, setBrandFilter] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
+  const [activeRawOutput, setActiveRawOutput] = useState(null);
 
   if (loading) {
-    return <div style={{ padding: "32px 40px", color: "rgba(255,255,255,0.5)" }}>Laster data...</div>;
+    return <div style={{ padding: "32px 40px", color: "var(--text-secondary)" }}>Laster data...</div>;
   }
 
   const filtered = recentMentions.filter((m) => {
     if (platformFilter !== "all" && m.platform !== platformFilter) return false;
     if (brandFilter !== "all" && m.brandId !== brandFilter) return false;
-    if (searchQuery && !m.query.toLowerCase().includes(searchQuery.toLowerCase()) && !m.response.toLowerCase().includes(searchQuery.toLowerCase())) return false;
+    if (searchQuery) {
+      const needle = searchQuery.toLowerCase();
+      const queryText = (m.query || "").toLowerCase();
+      const responseText = (m.response || "").toLowerCase();
+      const rawText = (m.rawOutput || "").toLowerCase();
+      if (!queryText.includes(needle) && !responseText.includes(needle) && !rawText.includes(needle)) {
+        return false;
+      }
+    }
     return true;
   });
 
@@ -41,10 +49,10 @@ export default function MentionsPage() {
     <div style={{ padding: "32px 40px", maxWidth: 1400 }}>
       {/* Header */}
       <div style={{ marginBottom: 32 }}>
-        <h1 style={{ fontSize: 28, fontWeight: 600, color: "#fff", margin: 0, marginBottom: 6 }}>
+        <h1 style={{ fontSize: 28, fontWeight: 600, color: "var(--text-primary)", margin: 0, marginBottom: 6 }}>
           Omtaler
         </h1>
-        <p style={{ fontSize: 15, color: "rgba(255,255,255,0.4)", margin: 0 }}>
+        <p style={{ fontSize: 15, color: "var(--text-tertiary)", margin: 0 }}>
           Alle merkevareomtaler oppdaget på tvers av AI-plattformer
         </p>
       </div>
@@ -54,7 +62,7 @@ export default function MentionsPage() {
         <div style={{ position: "relative", flex: 1, maxWidth: 360 }}>
           <Search
             size={16}
-            style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", color: "rgba(255,255,255,0.3)" }}
+            style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", color: "var(--text-faint)" }}
           />
           <input
             type="text"
@@ -65,9 +73,9 @@ export default function MentionsPage() {
               width: "100%",
               padding: "10px 14px 10px 40px",
               borderRadius: 10,
-              border: "1px solid rgba(255,255,255,0.1)",
-              backgroundColor: "rgba(255,255,255,0.04)",
-              color: "#fff",
+              border: "1px solid var(--border-primary)",
+              backgroundColor: "var(--bg-input)",
+              color: "var(--text-primary)",
               fontSize: 14,
               outline: "none",
             }}
@@ -79,9 +87,9 @@ export default function MentionsPage() {
           style={{
             padding: "10px 14px",
             borderRadius: 10,
-            border: "1px solid rgba(255,255,255,0.1)",
-            backgroundColor: "rgba(255,255,255,0.04)",
-            color: "#fff",
+            border: "1px solid var(--border-primary)",
+            backgroundColor: "var(--bg-input)",
+            color: "var(--text-primary)",
             fontSize: 14,
             outline: "none",
             cursor: "pointer",
@@ -97,9 +105,9 @@ export default function MentionsPage() {
           style={{
             padding: "10px 14px",
             borderRadius: 10,
-            border: "1px solid rgba(255,255,255,0.1)",
-            backgroundColor: "rgba(255,255,255,0.04)",
-            color: "#fff",
+            border: "1px solid var(--border-primary)",
+            backgroundColor: "var(--bg-input)",
+            color: "var(--text-primary)",
             fontSize: 14,
             outline: "none",
             cursor: "pointer",
@@ -113,7 +121,7 @@ export default function MentionsPage() {
       </div>
 
       {/* Results count */}
-      <p style={{ fontSize: 13, color: "rgba(255,255,255,0.35)", marginBottom: 16 }}>
+      <p style={{ fontSize: 13, color: "var(--text-muted)", marginBottom: 16 }}>
         Viser {filtered.length} av {recentMentions.length} omtaler
       </p>
 
@@ -137,8 +145,8 @@ export default function MentionsPage() {
               style={{
                 padding: "20px 24px",
                 borderRadius: 14,
-                border: "1px solid rgba(255,255,255,0.08)",
-                backgroundColor: "rgba(255,255,255,0.03)",
+                border: "1px solid var(--border-primary)",
+                backgroundColor: "var(--bg-card)",
               }}
             >
               {/* Top bar */}
@@ -162,7 +170,7 @@ export default function MentionsPage() {
                       {brand.logo}
                     </div>
                   )}
-                  <span style={{ fontSize: 14, fontWeight: 600, color: "#fff" }}>
+                  <span style={{ fontSize: 14, fontWeight: 600, color: "var(--text-primary)" }}>
                     {mention.brandName}
                   </span>
                   <span
@@ -192,6 +200,20 @@ export default function MentionsPage() {
                     <SentimentIcon size={12} />
                     {sentiment.label}
                   </span>
+                  {mention.position && (
+                    <span
+                      style={{
+                        fontSize: 11,
+                        padding: "3px 8px",
+                        borderRadius: 6,
+                        backgroundColor: "rgba(34,211,238,0.16)",
+                        color: "#67e8f9",
+                        fontWeight: 700,
+                      }}
+                    >
+                      #{mention.position}
+                    </span>
+                  )}
                 </div>
                 <div className="flex items-center" style={{ gap: 10 }}>
                   {mention.hasCitation && (
@@ -199,7 +221,7 @@ export default function MentionsPage() {
                       className="flex items-center"
                       style={{
                         fontSize: 12,
-                        color: "#a78bfa",
+                        color: "var(--accent)",
                         gap: 4,
                       }}
                     >
@@ -207,21 +229,39 @@ export default function MentionsPage() {
                       Sitering
                     </span>
                   )}
-                  <span style={{ fontSize: 12, color: "rgba(255,255,255,0.3)" }}>
+                  <span style={{ fontSize: 12, color: "var(--text-faint)" }}>
                     {timeStr}
                   </span>
                 </div>
               </div>
 
               {/* Query */}
-              <p style={{ fontSize: 14, color: "rgba(255,255,255,0.8)", margin: 0, marginBottom: 10, fontWeight: 500 }}>
+              <p style={{ fontSize: 14, color: "var(--text-primary)", margin: 0, marginBottom: 10, fontWeight: 500 }}>
                 &ldquo;{mention.query}&rdquo;
               </p>
 
               {/* Response */}
-              <p style={{ fontSize: 13, color: "rgba(255,255,255,0.4)", margin: 0, lineHeight: 1.65 }}>
+              <p style={{ fontSize: 13, color: "var(--text-tertiary)", margin: 0, lineHeight: 1.65 }}>
                 {mention.response}
               </p>
+
+              {mention.rawOutput && (
+                <button
+                  onClick={() => setActiveRawOutput(mention)}
+                  style={{
+                    marginTop: 12,
+                    padding: "6px 10px",
+                    borderRadius: 8,
+                    border: "1px solid var(--border-primary)",
+                    backgroundColor: "var(--bg-input)",
+                    color: "var(--text-secondary)",
+                    fontSize: 12,
+                    cursor: "pointer",
+                  }}
+                >
+                  Vis full output
+                </button>
+              )}
 
               {/* Citation URL */}
               {mention.citationUrl && (
@@ -231,7 +271,7 @@ export default function MentionsPage() {
                   style={{
                     marginTop: 12,
                     fontSize: 12,
-                    color: "rgba(255,255,255,0.35)",
+                    color: "var(--text-muted)",
                     gap: 4,
                   }}
                 >
@@ -243,6 +283,60 @@ export default function MentionsPage() {
           );
         })}
       </div>
+
+      {activeRawOutput && (
+        <div
+          onClick={() => setActiveRawOutput(null)}
+          style={{
+            position: "fixed",
+            inset: 0,
+            backgroundColor: "rgba(0,0,0,0.75)",
+            display: "grid",
+            placeItems: "center",
+            padding: 20,
+            zIndex: 30,
+          }}
+        >
+          <div
+            onClick={(event) => event.stopPropagation()}
+            style={{
+              width: "min(860px, 95vw)",
+              maxHeight: "84vh",
+              overflow: "auto",
+              borderRadius: 14,
+              border: "1px solid var(--border-primary)",
+              backgroundColor: "var(--bg-sidebar)",
+              padding: 18,
+            }}
+          >
+            <div className="flex items-center justify-between" style={{ marginBottom: 12, gap: 10 }}>
+              <div>
+                <p style={{ margin: 0, fontSize: 15, fontWeight: 600, color: "var(--text-primary)" }}>
+                  {activeRawOutput.brandName} • {activeRawOutput.platform}
+                </p>
+                <p style={{ margin: "4px 0 0", fontSize: 12, color: "var(--text-secondary)" }}>
+                  {activeRawOutput.query}
+                </p>
+              </div>
+              <button onClick={() => setActiveRawOutput(null)} style={{ border: "none", background: "transparent", color: "var(--text-secondary)", cursor: "pointer" }}>
+                Lukk
+              </button>
+            </div>
+            <pre
+              style={{
+                margin: 0,
+                whiteSpace: "pre-wrap",
+                fontSize: 12,
+                lineHeight: 1.6,
+                color: "var(--text-primary)",
+                fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
+              }}
+            >
+              {activeRawOutput.rawOutput}
+            </pre>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

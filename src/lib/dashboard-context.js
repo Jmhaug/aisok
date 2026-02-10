@@ -3,6 +3,7 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { transformAnalysis } from "./transform-analysis";
 import * as mock from "./mock-data";
+import { MONITORING_SNAPSHOT_KEY } from "./onboarding-client";
 
 const DashboardContext = createContext(null);
 
@@ -12,8 +13,13 @@ export function DashboardProvider({ children }) {
 
   useEffect(() => {
     try {
-      const raw = localStorage.getItem("lgpsm_analysis_result");
-      if (raw) {
+      const candidates = [
+        localStorage.getItem(MONITORING_SNAPSHOT_KEY),
+        localStorage.getItem("lgpsm_query_capture_result"),
+        localStorage.getItem("lgpsm_analysis_result"),
+      ];
+      for (const raw of candidates) {
+        if (!raw) continue;
         const result = JSON.parse(raw);
         const transformed = transformAnalysis(result);
         if (transformed) {
