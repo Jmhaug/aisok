@@ -17,23 +17,32 @@ import {
 } from "recharts";
 import { useDashboardData } from "@/lib/dashboard-context";
 
-const COLORS = ["#a78bfa", "#38bdf8", "#f87171", "#4ade80", "#fbbf24", "#f472b6", "#fb923c", "#818cf8"];
+const COLORS = ["#b4a0fb", "#7dd3e8", "#f9a8a8", "#6ee7a0", "#f5d687", "#eca5d0", "#f4b07a", "#a5b4fc"];
 
 function CustomTooltip({ active, payload, label }) {
   if (!active || !payload) return null;
   return (
     <div
       style={{
-        background: "#1a1a1a",
-        border: "1px solid rgba(255,255,255,0.1)",
-        borderRadius: 8,
+        background: "var(--tooltip-bg)",
+        border: "1px solid var(--border-primary)",
+        borderRadius: 10,
         padding: "10px 14px",
         fontSize: 13,
+        backdropFilter: "blur(12px)",
+        boxShadow: "var(--tooltip-shadow)",
       }}
     >
-      <p style={{ color: "rgba(255,255,255,0.5)", margin: 0, marginBottom: 6 }}>{label}</p>
+      <p style={{
+        color: "var(--text-secondary)",
+        margin: 0,
+        marginBottom: 6,
+        fontSize: 11,
+        textTransform: "uppercase",
+        letterSpacing: "0.04em",
+      }}>{label}</p>
       {payload.map((p) => (
-        <p key={p.name} style={{ color: p.color || "#a78bfa", margin: 0, marginBottom: 2 }}>
+        <p key={p.name} style={{ color: p.color || "var(--accent)", margin: 0, marginBottom: 2, fontSize: 13 }}>
           {p.name}: {p.value}
         </p>
       ))}
@@ -45,7 +54,7 @@ export default function AnalyticsPage() {
   const { loading, visibilityTrends, brands, platformBreakdown, dailyAggregations, weeklyAggregations } = useDashboardData();
 
   if (loading) {
-    return <div style={{ padding: "32px 40px", color: "rgba(255,255,255,0.5)" }}>Laster data...</div>;
+    return <div style={{ padding: "40px 48px", color: "var(--text-secondary)" }}>Laster data...</div>;
   }
 
   const brandMentionShare = brands.map((b, i) => ({
@@ -55,30 +64,38 @@ export default function AnalyticsPage() {
   }));
 
   return (
-    <div style={{ padding: "32px 40px", maxWidth: 1400 }}>
+    <div style={{ padding: "40px 48px", maxWidth: 1400 }}>
       {/* Header */}
-      <div style={{ marginBottom: 32 }}>
-        <h1 style={{ fontSize: 28, fontWeight: 600, color: "#fff", margin: 0, marginBottom: 6 }}>
+      <div style={{ marginBottom: 36 }}>
+        <h1 style={{
+          fontSize: 30,
+          fontWeight: 400,
+          color: "var(--text-primary)",
+          margin: 0,
+          marginBottom: 8,
+          fontFamily: "'Instrument Serif', serif",
+        }}>
           Analyse
         </h1>
-        <p style={{ fontSize: 15, color: "rgba(255,255,255,0.4)", margin: 0 }}>
+        <p style={{ fontSize: 14, color: "var(--text-muted)", margin: 0 }}>
           Detaljerte analysediagrammer og innsikt
         </p>
       </div>
 
       {/* Row 1 */}
-      <div className="flex" style={{ gap: 16, marginBottom: 16 }}>
+      <div className="flex" style={{ gap: 20, marginBottom: 20 }}>
         {/* Visibility Trends - Full width */}
         <div
           style={{
             flex: 2,
-            padding: "24px",
+            padding: "28px",
             borderRadius: 14,
-            border: "1px solid rgba(255,255,255,0.08)",
-            backgroundColor: "rgba(255,255,255,0.03)",
+            border: "1px solid var(--border-secondary)",
+            backgroundColor: "var(--bg-card)",
+            backdropFilter: "blur(12px)",
           }}
         >
-          <h3 style={{ fontSize: 16, fontWeight: 600, color: "#fff", margin: 0, marginBottom: 24 }}>
+          <h3 style={{ fontSize: 16, fontWeight: 600, color: "var(--text-primary)", margin: 0, marginBottom: 24 }}>
             Synlighetstrender — Konkurrentsammenligning
           </h3>
           <ResponsiveContainer width="100%" height={320}>
@@ -86,7 +103,7 @@ export default function AnalyticsPage() {
               <defs>
                 {brands.slice(0, 2).map((b, i) => (
                   <linearGradient key={b.id} id={`grad${i}`} x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor={b.color} stopOpacity={0.3} />
+                    <stop offset="5%" stopColor={b.color} stopOpacity={0.2} />
                     <stop offset="95%" stopColor={b.color} stopOpacity={0} />
                   </linearGradient>
                 ))}
@@ -95,27 +112,27 @@ export default function AnalyticsPage() {
                 dataKey="date"
                 axisLine={false}
                 tickLine={false}
-                tick={{ fill: "rgba(255,255,255,0.3)", fontSize: 12 }}
+                tick={{ fill: "var(--chart-tick)", fontSize: 12 }}
               />
               <YAxis
                 axisLine={false}
                 tickLine={false}
-                tick={{ fill: "rgba(255,255,255,0.3)", fontSize: 12 }}
+                tick={{ fill: "var(--chart-tick)", fontSize: 12 }}
                 domain={[0, 100]}
               />
               <Tooltip content={<CustomTooltip />} />
               {brands.map((b, i) => (
                 i < 2
-                  ? <Area key={b.id} type="monotone" dataKey={b.name} stroke={b.color} strokeWidth={2} fill={`url(#grad${i})`} />
-                  : <Line key={b.id} type="monotone" dataKey={b.name} stroke={b.color} strokeWidth={2} dot={false} />
+                  ? <Area key={b.id} type="monotone" dataKey={b.name} stroke={b.color} strokeWidth={1.5} fill={`url(#grad${i})`} />
+                  : <Line key={b.id} type="monotone" dataKey={b.name} stroke={b.color} strokeWidth={1.5} dot={false} />
               ))}
             </AreaChart>
           </ResponsiveContainer>
           <div className="flex items-center justify-center" style={{ gap: 24, marginTop: 12 }}>
             {brands.map((b) => (
               <div key={b.id} className="flex items-center" style={{ gap: 6 }}>
-                <div style={{ width: 10, height: 10, borderRadius: 3, backgroundColor: b.color }} />
-                <span style={{ fontSize: 12, color: "rgba(255,255,255,0.5)" }}>{b.name}</span>
+                <div style={{ width: 8, height: 8, borderRadius: 9999, backgroundColor: b.color }} />
+                <span style={{ fontSize: 12, color: "var(--text-secondary)" }}>{b.name}</span>
               </div>
             ))}
           </div>
@@ -125,13 +142,14 @@ export default function AnalyticsPage() {
         <div
           style={{
             flex: 1,
-            padding: "24px",
+            padding: "28px",
             borderRadius: 14,
-            border: "1px solid rgba(255,255,255,0.08)",
-            backgroundColor: "rgba(255,255,255,0.03)",
+            border: "1px solid var(--border-secondary)",
+            backgroundColor: "var(--bg-card)",
+            backdropFilter: "blur(12px)",
           }}
         >
-          <h3 style={{ fontSize: 16, fontWeight: 600, color: "#fff", margin: 0, marginBottom: 24 }}>
+          <h3 style={{ fontSize: 16, fontWeight: 600, color: "var(--text-primary)", margin: 0, marginBottom: 24 }}>
             Omtalefordeling
           </h3>
           <ResponsiveContainer width="100%" height={240}>
@@ -142,7 +160,7 @@ export default function AnalyticsPage() {
                 cy="50%"
                 innerRadius={60}
                 outerRadius={100}
-                paddingAngle={3}
+                paddingAngle={4}
                 dataKey="value"
               >
                 {brandMentionShare.map((entry, index) => (
@@ -155,8 +173,8 @@ export default function AnalyticsPage() {
           <div className="flex flex-wrap" style={{ gap: 8, marginTop: 8, justifyContent: "center" }}>
             {brandMentionShare.slice(0, 6).map((entry) => (
               <div key={entry.name} className="flex items-center" style={{ gap: 4 }}>
-                <div style={{ width: 8, height: 8, borderRadius: 2, backgroundColor: entry.color }} />
-                <span style={{ fontSize: 11, color: "rgba(255,255,255,0.5)" }}>{entry.name}</span>
+                <div style={{ width: 7, height: 7, borderRadius: 9999, backgroundColor: entry.color }} />
+                <span style={{ fontSize: 11, color: "var(--text-secondary)" }}>{entry.name}</span>
               </div>
             ))}
           </div>
@@ -164,18 +182,19 @@ export default function AnalyticsPage() {
       </div>
 
       {/* Row 2 */}
-      <div className="flex" style={{ gap: 16, marginBottom: 16 }}>
+      <div className="flex" style={{ gap: 20, marginBottom: 20 }}>
         {/* Daily aggregations */}
         <div
           style={{
             flex: 1,
-            padding: "24px",
+            padding: "28px",
             borderRadius: 14,
-            border: "1px solid rgba(255,255,255,0.08)",
-            backgroundColor: "rgba(255,255,255,0.03)",
+            border: "1px solid var(--border-secondary)",
+            backgroundColor: "var(--bg-card)",
+            backdropFilter: "blur(12px)",
           }}
         >
-          <h3 style={{ fontSize: 16, fontWeight: 600, color: "#fff", margin: 0, marginBottom: 24 }}>
+          <h3 style={{ fontSize: 16, fontWeight: 600, color: "var(--text-primary)", margin: 0, marginBottom: 24 }}>
             Daglig aktivitet
           </h3>
           <ResponsiveContainer width="100%" height={240}>
@@ -184,17 +203,17 @@ export default function AnalyticsPage() {
                 dataKey="date"
                 axisLine={false}
                 tickLine={false}
-                tick={{ fill: "rgba(255,255,255,0.3)", fontSize: 11 }}
+                tick={{ fill: "var(--chart-tick)", fontSize: 11 }}
                 tickFormatter={(v) => v.split("-")[2] + " feb"}
               />
               <YAxis
                 axisLine={false}
                 tickLine={false}
-                tick={{ fill: "rgba(255,255,255,0.3)", fontSize: 12 }}
+                tick={{ fill: "var(--chart-tick)", fontSize: 12 }}
               />
               <Tooltip content={<CustomTooltip />} />
-              <Bar dataKey="totalMentions" fill="#a78bfa" radius={[4, 4, 0, 0]} name="Omtaler" />
-              <Bar dataKey="totalCitations" fill="#7c3aed" radius={[4, 4, 0, 0]} name="Siteringer" />
+              <Bar dataKey="totalMentions" fill="var(--accent)" radius={[4, 4, 0, 0]} name="Omtaler" />
+              <Bar dataKey="totalCitations" fill="var(--accent-deep)" radius={[4, 4, 0, 0]} name="Siteringer" />
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -203,31 +222,32 @@ export default function AnalyticsPage() {
         <div
           style={{
             flex: 1,
-            padding: "24px",
+            padding: "28px",
             borderRadius: 14,
-            border: "1px solid rgba(255,255,255,0.08)",
-            backgroundColor: "rgba(255,255,255,0.03)",
+            border: "1px solid var(--border-secondary)",
+            backgroundColor: "var(--bg-card)",
+            backdropFilter: "blur(12px)",
           }}
         >
-          <h3 style={{ fontSize: 16, fontWeight: 600, color: "#fff", margin: 0, marginBottom: 24 }}>
+          <h3 style={{ fontSize: 16, fontWeight: 600, color: "var(--text-primary)", margin: 0, marginBottom: 24 }}>
             Ukentlig oppsummering
           </h3>
           <table style={{ width: "100%", borderCollapse: "collapse" }}>
             <thead>
-              <tr style={{ borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
-                <th style={{ textAlign: "left", padding: "10px 12px", fontSize: 12, color: "rgba(255,255,255,0.4)", fontWeight: 500 }}>Uke</th>
-                <th style={{ textAlign: "right", padding: "10px 12px", fontSize: 12, color: "rgba(255,255,255,0.4)", fontWeight: 500 }}>Omtaler</th>
-                <th style={{ textAlign: "right", padding: "10px 12px", fontSize: 12, color: "rgba(255,255,255,0.4)", fontWeight: 500 }}>Siteringer</th>
-                <th style={{ textAlign: "right", padding: "10px 12px", fontSize: 12, color: "rgba(255,255,255,0.4)", fontWeight: 500 }}>Gj.snitt</th>
+              <tr style={{ borderBottom: "1px solid var(--border-secondary)" }}>
+                <th style={{ textAlign: "left", padding: "14px 12px", fontSize: 11, color: "var(--text-muted)", fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.05em" }}>Uke</th>
+                <th style={{ textAlign: "right", padding: "14px 12px", fontSize: 11, color: "var(--text-muted)", fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.05em" }}>Omtaler</th>
+                <th style={{ textAlign: "right", padding: "14px 12px", fontSize: 11, color: "var(--text-muted)", fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.05em" }}>Siteringer</th>
+                <th style={{ textAlign: "right", padding: "14px 12px", fontSize: 11, color: "var(--text-muted)", fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.05em" }}>Gj.snitt</th>
               </tr>
             </thead>
             <tbody>
               {weeklyAggregations.map((w) => (
-                <tr key={w.week} style={{ borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
-                  <td style={{ padding: "12px", fontSize: 13, color: "rgba(255,255,255,0.7)" }}>{w.week}</td>
-                  <td style={{ padding: "12px", fontSize: 13, color: "#fff", textAlign: "right", fontWeight: 500 }}>{w.totalMentions}</td>
-                  <td style={{ padding: "12px", fontSize: 13, color: "#fff", textAlign: "right", fontWeight: 500 }}>{w.totalCitations}</td>
-                  <td style={{ padding: "12px", fontSize: 13, color: "#a78bfa", textAlign: "right", fontWeight: 500 }}>{w.avgScore}</td>
+                <tr key={w.week} style={{ borderBottom: "1px solid var(--border-row)" }}>
+                  <td style={{ padding: "14px 12px", fontSize: 13, color: "var(--text-secondary)" }}>{w.week}</td>
+                  <td style={{ padding: "14px 12px", fontSize: 13, color: "var(--text-primary)", textAlign: "right", fontWeight: 500 }}>{w.totalMentions}</td>
+                  <td style={{ padding: "14px 12px", fontSize: 13, color: "var(--text-primary)", textAlign: "right", fontWeight: 500 }}>{w.totalCitations}</td>
+                  <td style={{ padding: "14px 12px", fontSize: 13, color: "var(--accent)", textAlign: "right", fontWeight: 500 }}>{w.avgScore}</td>
                 </tr>
               ))}
             </tbody>
@@ -238,33 +258,34 @@ export default function AnalyticsPage() {
       {/* Row 3 — Competitor Comparison Table */}
       <div
         style={{
-          padding: "24px",
+          padding: "28px",
           borderRadius: 14,
-          border: "1px solid rgba(255,255,255,0.08)",
-          backgroundColor: "rgba(255,255,255,0.03)",
+          border: "1px solid var(--border-secondary)",
+          backgroundColor: "var(--bg-card)",
+          backdropFilter: "blur(12px)",
         }}
       >
-        <h3 style={{ fontSize: 16, fontWeight: 600, color: "#fff", margin: 0, marginBottom: 24 }}>
+        <h3 style={{ fontSize: 16, fontWeight: 600, color: "var(--text-primary)", margin: 0, marginBottom: 24 }}>
           Konkurrentsammenligning
         </h3>
         <table style={{ width: "100%", borderCollapse: "collapse" }}>
           <thead>
-            <tr style={{ borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
-              <th style={{ textAlign: "left", padding: "10px 12px", fontSize: 12, color: "rgba(255,255,255,0.4)", fontWeight: 500 }}>Merkevare</th>
-              <th style={{ textAlign: "center", padding: "10px 12px", fontSize: 12, color: "rgba(255,255,255,0.4)", fontWeight: 500 }}>Synlighetspoeng</th>
-              <th style={{ textAlign: "center", padding: "10px 12px", fontSize: 12, color: "rgba(255,255,255,0.4)", fontWeight: 500 }}>Omtaler</th>
-              <th style={{ textAlign: "center", padding: "10px 12px", fontSize: 12, color: "rgba(255,255,255,0.4)", fontWeight: 500 }}>Siteringer</th>
-              <th style={{ textAlign: "center", padding: "10px 12px", fontSize: 12, color: "rgba(255,255,255,0.4)", fontWeight: 500 }}>Endring</th>
+            <tr style={{ borderBottom: "1px solid var(--border-secondary)" }}>
+              <th style={{ textAlign: "left", padding: "14px 12px", fontSize: 11, color: "var(--text-muted)", fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.05em" }}>Merkevare</th>
+              <th style={{ textAlign: "center", padding: "14px 12px", fontSize: 11, color: "var(--text-muted)", fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.05em" }}>Synlighetspoeng</th>
+              <th style={{ textAlign: "center", padding: "14px 12px", fontSize: 11, color: "var(--text-muted)", fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.05em" }}>Omtaler</th>
+              <th style={{ textAlign: "center", padding: "14px 12px", fontSize: 11, color: "var(--text-muted)", fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.05em" }}>Siteringer</th>
+              <th style={{ textAlign: "center", padding: "14px 12px", fontSize: 11, color: "var(--text-muted)", fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.05em" }}>Endring</th>
             </tr>
           </thead>
           <tbody>
             {brands.sort((a, b) => b.visibilityScore - a.visibilityScore).map((brand, i) => {
               const change = brand.visibilityScore - brand.previousScore;
               return (
-                <tr key={brand.id} style={{ borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
+                <tr key={brand.id} style={{ borderBottom: "1px solid var(--border-row)" }}>
                   <td style={{ padding: "14px 12px" }}>
                     <div className="flex items-center" style={{ gap: 10 }}>
-                      <span style={{ fontSize: 12, color: "rgba(255,255,255,0.25)", width: 20 }}>#{i + 1}</span>
+                      <span style={{ fontSize: 12, color: "var(--text-faint)", width: 20 }}>#{i + 1}</span>
                       <div
                         style={{
                           width: 32,
@@ -281,20 +302,20 @@ export default function AnalyticsPage() {
                       >
                         {brand.logo}
                       </div>
-                      <span style={{ fontSize: 14, fontWeight: 500, color: "#fff" }}>{brand.name}</span>
+                      <span style={{ fontSize: 14, fontWeight: 500, color: "var(--text-primary)" }}>{brand.name}</span>
                     </div>
                   </td>
                   <td style={{ textAlign: "center", padding: "14px 12px" }}>
-                    <span style={{ fontSize: 18, fontWeight: 600, color: "#fff" }}>{brand.visibilityScore}</span>
+                    <span style={{ fontSize: 18, fontWeight: 600, color: "var(--text-primary)" }}>{brand.visibilityScore}</span>
                   </td>
-                  <td style={{ textAlign: "center", padding: "14px 12px", fontSize: 14, color: "rgba(255,255,255,0.6)" }}>
+                  <td style={{ textAlign: "center", padding: "14px 12px", fontSize: 14, color: "var(--text-secondary)" }}>
                     {brand.mentionsThisWeek}
                   </td>
-                  <td style={{ textAlign: "center", padding: "14px 12px", fontSize: 14, color: "rgba(255,255,255,0.6)" }}>
+                  <td style={{ textAlign: "center", padding: "14px 12px", fontSize: 14, color: "var(--text-secondary)" }}>
                     {brand.citationsThisWeek}
                   </td>
                   <td style={{ textAlign: "center", padding: "14px 12px" }}>
-                    <span style={{ fontSize: 14, fontWeight: 500, color: change >= 0 ? "#4ade80" : "#f87171" }}>
+                    <span style={{ fontSize: 14, fontWeight: 500, color: change >= 0 ? "var(--success)" : "var(--error)" }}>
                       {change >= 0 ? "+" : ""}{change}
                     </span>
                   </td>

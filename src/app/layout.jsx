@@ -24,8 +24,13 @@ export default function RootLayout({ children }) {
         },
       }}
     >
-      <html lang="no">
+      <html lang="no" suppressHydrationWarning>
         <head>
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `(function(){try{var t=localStorage.getItem("lgpsm-theme");if(t==="light")document.documentElement.setAttribute("data-theme","light")}catch(e){}})()`,
+            }}
+          />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link
             rel="preconnect"

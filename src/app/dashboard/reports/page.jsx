@@ -49,10 +49,10 @@ export default function ReportsPage() {
     <div style={{ padding: "32px 40px", maxWidth: 1400 }}>
       <div className="flex items-center justify-between" style={{ marginBottom: 32 }}>
         <div>
-          <h1 style={{ fontSize: 28, fontWeight: 600, color: "#fff", margin: 0, marginBottom: 6 }}>
+          <h1 style={{ fontSize: 28, fontWeight: 600, color: "var(--text-primary)", margin: 0, marginBottom: 6 }}>
             Rapporter
           </h1>
-          <p style={{ fontSize: 15, color: "rgba(255,255,255,0.4)", margin: 0 }}>
+          <p style={{ fontSize: 15, color: "var(--text-tertiary)", margin: 0 }}>
             Generer og last ned synlighetsrapporter
           </p>
         </div>
@@ -64,9 +64,9 @@ export default function ReportsPage() {
               gap: 8,
               padding: "10px 20px",
               borderRadius: 10,
-              border: "1px solid rgba(255,255,255,0.15)",
+              border: "1px solid var(--border-primary)",
               backgroundColor: "transparent",
-              color: "#fff",
+              color: "var(--text-primary)",
               fontSize: 14,
               fontWeight: 500,
               cursor: "pointer",
@@ -83,7 +83,7 @@ export default function ReportsPage() {
               padding: "10px 20px",
               borderRadius: 10,
               border: "none",
-              background: "linear-gradient(135deg, #a78bfa 0%, #7c3aed 100%)",
+              background: "var(--accent-gradient)",
               color: "#fff",
               fontSize: 14,
               fontWeight: 500,
@@ -101,18 +101,18 @@ export default function ReportsPage() {
         style={{
           padding: "16px 20px",
           borderRadius: 12,
-          border: "1px solid rgba(167,139,250,0.2)",
-          backgroundColor: "rgba(167,139,250,0.06)",
+          border: "1px solid var(--accent-bg-hover)",
+          backgroundColor: "var(--accent-bg)",
           marginBottom: 24,
           display: "flex",
           alignItems: "center",
           gap: 12,
         }}
       >
-        <Palette size={18} color="#a78bfa" />
+        <Palette size={18} color="var(--accent)" />
         <div>
-          <span style={{ fontSize: 14, color: "#a78bfa", fontWeight: 500 }}>White-label rapporter tilgjengelig</span>
-          <span style={{ fontSize: 13, color: "rgba(255,255,255,0.4)", marginLeft: 8 }}>
+          <span style={{ fontSize: 14, color: "var(--accent)", fontWeight: 500 }}>White-label rapporter tilgjengelig</span>
+          <span style={{ fontSize: 13, color: "var(--text-tertiary)", marginLeft: 8 }}>
             Tilpass rapporter med din merkevare, logo og farger for dine kunder.
           </span>
         </div>
@@ -133,8 +133,8 @@ export default function ReportsPage() {
               style={{
                 padding: "20px 24px",
                 borderRadius: 12,
-                border: "1px solid rgba(255,255,255,0.08)",
-                backgroundColor: "rgba(255,255,255,0.03)",
+                border: "1px solid var(--border-primary)",
+                backgroundColor: "var(--bg-card)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-between",
@@ -146,20 +146,20 @@ export default function ReportsPage() {
                     width: 44,
                     height: 44,
                     borderRadius: 10,
-                    backgroundColor: "rgba(167,139,250,0.1)",
+                    backgroundColor: "var(--accent-bg)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                   }}
                 >
-                  <FileText size={20} color="#a78bfa" />
+                  <FileText size={20} color="var(--accent)" />
                 </div>
                 <div>
-                  <div style={{ fontSize: 15, fontWeight: 500, color: "#fff", marginBottom: 4 }}>
+                  <div style={{ fontSize: 15, fontWeight: 500, color: "var(--text-primary)", marginBottom: 4 }}>
                     {report.title}
                   </div>
                   <div className="flex items-center" style={{ gap: 10 }}>
-                    <span className="flex items-center" style={{ fontSize: 12, color: "rgba(255,255,255,0.35)", gap: 4 }}>
+                    <span className="flex items-center" style={{ fontSize: 12, color: "var(--text-muted)", gap: 4 }}>
                       <Calendar size={12} /> {date}
                     </span>
                     <div className="flex items-center" style={{ gap: 4 }}>
@@ -170,8 +170,8 @@ export default function ReportsPage() {
                             fontSize: 11,
                             padding: "2px 6px",
                             borderRadius: 4,
-                            backgroundColor: "rgba(255,255,255,0.06)",
-                            color: "rgba(255,255,255,0.4)",
+                            backgroundColor: "var(--bg-input)",
+                            color: "var(--text-tertiary)",
                           }}
                         >
                           {b}
@@ -190,9 +190,9 @@ export default function ReportsPage() {
                     gap: 6,
                     padding: "8px 14px",
                     borderRadius: 8,
-                    border: "1px solid rgba(255,255,255,0.1)",
+                    border: "1px solid var(--border-primary)",
                     backgroundColor: "transparent",
-                    color: "rgba(255,255,255,0.6)",
+                    color: "var(--text-secondary)",
                     fontSize: 13,
                     cursor: "pointer",
                   }}
@@ -206,9 +206,9 @@ export default function ReportsPage() {
                     gap: 6,
                     padding: "8px 14px",
                     borderRadius: 8,
-                    border: "1px solid rgba(255,255,255,0.1)",
+                    border: "1px solid var(--border-primary)",
                     backgroundColor: "transparent",
-                    color: "rgba(255,255,255,0.6)",
+                    color: "var(--text-secondary)",
                     fontSize: 13,
                     cursor: "pointer",
                   }}
@@ -222,9 +222,9 @@ export default function ReportsPage() {
                     gap: 6,
                     padding: "8px 14px",
                     borderRadius: 8,
-                    border: "1px solid rgba(255,255,255,0.1)",
+                    border: "1px solid var(--border-primary)",
                     backgroundColor: "transparent",
-                    color: "rgba(255,255,255,0.6)",
+                    color: "var(--text-secondary)",
                     fontSize: 13,
                     cursor: "pointer",
                   }}

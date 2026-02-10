@@ -18,7 +18,7 @@ export default function PromptsPage() {
   const [filter, setFilter] = useState("all");
 
   if (loading) {
-    return <div style={{ padding: "32px 40px", color: "rgba(255,255,255,0.5)" }}>Laster data...</div>;
+    return <div style={{ padding: "32px 40px", color: "var(--text-secondary)" }}>Laster data...</div>;
   }
 
   const filtered = filter === "all" ? prompts : filter === "active" ? prompts.filter((p) => p.isActive) : prompts.filter((p) => !p.isActive);
@@ -27,10 +27,10 @@ export default function PromptsPage() {
     <div style={{ padding: "32px 40px", maxWidth: 1400 }}>
       <div className="flex items-center justify-between" style={{ marginBottom: 32 }}>
         <div>
-          <h1 style={{ fontSize: 28, fontWeight: 600, color: "#fff", margin: 0, marginBottom: 6 }}>
+          <h1 style={{ fontSize: 28, fontWeight: 600, color: "var(--text-primary)", margin: 0, marginBottom: 6 }}>
             Søk & Prompts
           </h1>
-          <p style={{ fontSize: 15, color: "rgba(255,255,255,0.4)", margin: 0 }}>
+          <p style={{ fontSize: 15, color: "var(--text-tertiary)", margin: 0 }}>
             Administrer AI-spørringene som brukes til å overvåke merkevarer
           </p>
         </div>
@@ -42,7 +42,7 @@ export default function PromptsPage() {
             padding: "10px 20px",
             borderRadius: 10,
             border: "none",
-            background: "linear-gradient(135deg, #a78bfa 0%, #7c3aed 100%)",
+            background: "var(--accent-gradient)",
             color: "#fff",
             fontSize: 14,
             fontWeight: 500,
@@ -68,9 +68,9 @@ export default function PromptsPage() {
               padding: "8px 16px",
               borderRadius: 8,
               border: "1px solid",
-              borderColor: filter === tab.key ? "rgba(167,139,250,0.4)" : "rgba(255,255,255,0.1)",
-              backgroundColor: filter === tab.key ? "rgba(167,139,250,0.12)" : "transparent",
-              color: filter === tab.key ? "#a78bfa" : "rgba(255,255,255,0.5)",
+              borderColor: filter === tab.key ? "var(--accent-bg-hover)" : "var(--border-primary)",
+              backgroundColor: filter === tab.key ? "var(--accent-bg)" : "transparent",
+              color: filter === tab.key ? "var(--accent)" : "var(--text-secondary)",
               fontSize: 13,
               fontWeight: 500,
               cursor: "pointer",
@@ -98,8 +98,8 @@ export default function PromptsPage() {
               style={{
                 padding: "20px 24px",
                 borderRadius: 12,
-                border: "1px solid rgba(255,255,255,0.08)",
-                backgroundColor: "rgba(255,255,255,0.03)",
+                border: "1px solid var(--border-primary)",
+                backgroundColor: "var(--bg-card)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-between",
@@ -112,10 +112,10 @@ export default function PromptsPage() {
                       width: 8,
                       height: 8,
                       borderRadius: 4,
-                      backgroundColor: prompt.isActive ? "#4ade80" : "rgba(255,255,255,0.2)",
+                      backgroundColor: prompt.isActive ? "var(--success)" : "var(--text-faint)",
                     }}
                   />
-                  <span style={{ fontSize: 15, fontWeight: 500, color: "#fff" }}>
+                  <span style={{ fontSize: 15, fontWeight: 500, color: "var(--text-primary)" }}>
                     {prompt.query}
                   </span>
                 </div>
@@ -125,8 +125,8 @@ export default function PromptsPage() {
                       fontSize: 12,
                       padding: "2px 8px",
                       borderRadius: 4,
-                      backgroundColor: "rgba(167,139,250,0.12)",
-                      color: "#a78bfa",
+                      backgroundColor: "var(--accent-bg)",
+                      color: "var(--accent)",
                     }}
                   >
                     {prompt.category}
@@ -138,18 +138,18 @@ export default function PromptsPage() {
                         fontSize: 12,
                         padding: "2px 8px",
                         borderRadius: 4,
-                        backgroundColor: "rgba(255,255,255,0.06)",
-                        color: "rgba(255,255,255,0.45)",
+                        backgroundColor: "var(--bg-input)",
+                        color: "var(--text-tertiary)",
                       }}
                     >
                       {p === "chatgpt" ? "ChatGPT" : "Perplexity"}
                     </span>
                   ))}
-                  <span className="flex items-center" style={{ fontSize: 12, color: "rgba(255,255,255,0.3)", gap: 4 }}>
+                  <span className="flex items-center" style={{ fontSize: 12, color: "var(--text-faint)", gap: 4 }}>
                     <Clock size={12} />
                     {prompt.frequency === "daily" ? "Daglig" : "Ukentlig"}
                   </span>
-                  <span style={{ fontSize: 12, color: "rgba(255,255,255,0.25)" }}>
+                  <span style={{ fontSize: 12, color: "var(--text-faint)" }}>
                     Sist kjørt: {lastRunStr}
                   </span>
                 </div>
@@ -161,9 +161,9 @@ export default function PromptsPage() {
                     width: 36,
                     height: 36,
                     borderRadius: 8,
-                    border: "1px solid rgba(255,255,255,0.1)",
+                    border: "1px solid var(--border-primary)",
                     backgroundColor: "transparent",
-                    color: "rgba(255,255,255,0.5)",
+                    color: "var(--text-secondary)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -178,9 +178,9 @@ export default function PromptsPage() {
                     width: 36,
                     height: 36,
                     borderRadius: 8,
-                    border: "1px solid rgba(255,255,255,0.1)",
+                    border: "1px solid var(--border-primary)",
                     backgroundColor: "transparent",
-                    color: "rgba(255,255,255,0.5)",
+                    color: "var(--text-secondary)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",

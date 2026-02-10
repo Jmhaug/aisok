@@ -7,7 +7,7 @@ export default function CompetitorsPage() {
   const { loading, brands, competitors } = useDashboardData();
 
   if (loading) {
-    return <div style={{ padding: "32px 40px", color: "rgba(255,255,255,0.5)" }}>Laster data...</div>;
+    return <div style={{ padding: "32px 40px", color: "var(--text-secondary)" }}>Laster data...</div>;
   }
 
   // Group competitors by brand
@@ -21,10 +21,10 @@ export default function CompetitorsPage() {
     <div style={{ padding: "32px 40px", maxWidth: 1400 }}>
       <div className="flex items-center justify-between" style={{ marginBottom: 32 }}>
         <div>
-          <h1 style={{ fontSize: 28, fontWeight: 600, color: "#fff", margin: 0, marginBottom: 6 }}>
+          <h1 style={{ fontSize: 28, fontWeight: 600, color: "var(--text-primary)", margin: 0, marginBottom: 6 }}>
             Konkurrenter
           </h1>
-          <p style={{ fontSize: 15, color: "rgba(255,255,255,0.4)", margin: 0 }}>
+          <p style={{ fontSize: 15, color: "var(--text-tertiary)", margin: 0 }}>
             Spor konkurrentenes AI-synlighet mot dine merkevarer
           </p>
         </div>
@@ -36,7 +36,7 @@ export default function CompetitorsPage() {
             padding: "10px 20px",
             borderRadius: 10,
             border: "none",
-            background: "linear-gradient(135deg, #a78bfa 0%, #7c3aed 100%)",
+            background: "var(--accent-gradient)",
             color: "#fff",
             fontSize: 14,
             fontWeight: 500,
@@ -60,8 +60,8 @@ export default function CompetitorsPage() {
               style={{
                 padding: "24px",
                 borderRadius: 14,
-                border: "1px solid rgba(255,255,255,0.08)",
-                backgroundColor: "rgba(255,255,255,0.03)",
+                border: "1px solid var(--border-primary)",
+                backgroundColor: "var(--bg-card)",
               }}
             >
               {/* Brand header */}
@@ -83,8 +83,8 @@ export default function CompetitorsPage() {
                   {brand.logo}
                 </div>
                 <div>
-                  <div style={{ fontSize: 16, fontWeight: 600, color: "#fff" }}>{brand.name}</div>
-                  <div style={{ fontSize: 12, color: "rgba(255,255,255,0.35)" }}>
+                  <div style={{ fontSize: 16, fontWeight: 600, color: "var(--text-primary)" }}>{brand.name}</div>
+                  <div style={{ fontSize: 12, color: "var(--text-muted)" }}>
                     Synlighetspoeng: {brand.visibilityScore}
                   </div>
                 </div>
@@ -105,8 +105,8 @@ export default function CompetitorsPage() {
                       style={{
                         padding: "14px 18px",
                         borderRadius: 10,
-                        backgroundColor: "rgba(255,255,255,0.03)",
-                        border: "1px solid rgba(255,255,255,0.05)",
+                        backgroundColor: "var(--bg-card-inner)",
+                        border: "1px solid var(--border-subtle)",
                       }}
                     >
                       <div className="flex items-center" style={{ gap: 12 }}>
@@ -127,15 +127,15 @@ export default function CompetitorsPage() {
                           {compBrand.logo}
                         </div>
                         <div>
-                          <div style={{ fontSize: 14, fontWeight: 500, color: "#fff" }}>{compBrand.name}</div>
-                          <div style={{ fontSize: 12, color: "rgba(255,255,255,0.3)" }}>{comp.notes}</div>
+                          <div style={{ fontSize: 14, fontWeight: 500, color: "var(--text-primary)" }}>{compBrand.name}</div>
+                          <div style={{ fontSize: 12, color: "var(--text-faint)" }}>{comp.notes}</div>
                         </div>
                       </div>
 
                       <div className="flex items-center" style={{ gap: 16 }}>
                         <div style={{ textAlign: "center" }}>
-                          <div style={{ fontSize: 12, color: "rgba(255,255,255,0.3)" }}>Poeng</div>
-                          <div style={{ fontSize: 18, fontWeight: 600, color: "#fff" }}>
+                          <div style={{ fontSize: 12, color: "var(--text-faint)" }}>Poeng</div>
+                          <div style={{ fontSize: 18, fontWeight: 600, color: "var(--text-primary)" }}>
                             {compBrand.visibilityScore}
                           </div>
                         </div>
@@ -145,11 +145,11 @@ export default function CompetitorsPage() {
                             gap: 4,
                             padding: "6px 12px",
                             borderRadius: 8,
-                            backgroundColor: isAhead ? "rgba(74,222,128,0.1)" : "rgba(248,113,113,0.1)",
+                            backgroundColor: isAhead ? "var(--success-bg)" : "var(--error-bg)",
                           }}
                         >
-                          {isAhead ? <TrendingUp size={14} color="#4ade80" /> : <TrendingDown size={14} color="#f87171" />}
-                          <span style={{ fontSize: 13, fontWeight: 600, color: isAhead ? "#4ade80" : "#f87171" }}>
+                          {isAhead ? <TrendingUp size={14} color="var(--success)" /> : <TrendingDown size={14} color="var(--error)" />}
+                          <span style={{ fontSize: 13, fontWeight: 600, color: isAhead ? "var(--success)" : "var(--error)" }}>
                             {isAhead ? "+" : ""}{diff}
                           </span>
                         </div>

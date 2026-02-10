@@ -7,7 +7,7 @@ export const metadata = {
 
 export default function DashboardLayout({ children }) {
   return (
-    <div style={{ display: "flex", minHeight: "100vh", background: "#000" }}>
+    <div style={{ display: "flex", minHeight: "100vh", background: "var(--bg-page)" }}>
       <Sidebar />
       <main style={{ flex: 1, overflow: "auto" }}>
         <DashboardWrapper>{children}</DashboardWrapper>

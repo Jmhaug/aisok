@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { User } from "lucide-react";
+import { User, Sun, Moon } from "lucide-react";
 import {
   LayoutDashboard,
   Building2,
@@ -19,6 +19,7 @@ import {
   ChevronRight,
   Sparkles,
 } from "lucide-react";
+import { useTheme } from "@/hooks/useTheme";
 
 const navigation = [
   { name: "Oversikt", href: "/dashboard", icon: LayoutDashboard },
@@ -36,17 +37,18 @@ const navigation = [
 export default function Sidebar() {
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <aside
       style={{
         width: collapsed ? 72 : 260,
         minHeight: "100vh",
-        backgroundColor: "#0a0a0a",
-        borderRight: "1px solid rgba(255,255,255,0.08)",
+        backgroundColor: "var(--bg-sidebar)",
+        borderRight: "1px solid var(--border-subtle)",
         display: "flex",
         flexDirection: "column",
-        transition: "width 0.2s ease",
+        transition: "width 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
         flexShrink: 0,
       }}
     >
@@ -57,7 +59,7 @@ export default function Sidebar() {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          borderBottom: "1px solid rgba(255,255,255,0.06)",
+          borderBottom: "1px solid var(--border-subtle)",
         }}
       >
         <Link href="/dashboard" className="flex items-center no-underline" style={{ gap: 10 }}>
@@ -66,17 +68,24 @@ export default function Sidebar() {
               width: 36,
               height: 36,
               borderRadius: 10,
-              background: "linear-gradient(135deg, #a78bfa 0%, #7c3aed 100%)",
+              background: "var(--accent-gradient)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               flexShrink: 0,
+              boxShadow: "var(--accent-glow)",
             }}
           >
             <Sparkles size={18} color="#fff" />
           </div>
           {!collapsed && (
-            <span style={{ fontSize: 18, fontWeight: 700, color: "#fff", letterSpacing: "0.04em" }}>
+            <span style={{
+              fontSize: 18,
+              fontWeight: 400,
+              color: "var(--text-primary)",
+              letterSpacing: "0.12em",
+              fontFamily: "'Instrument Serif', serif",
+            }}>
               LGPSM
             </span>
           )}
@@ -87,9 +96,9 @@ export default function Sidebar() {
             width: 28,
             height: 28,
             borderRadius: 6,
-            border: "1px solid rgba(255,255,255,0.1)",
+            border: "1px solid var(--border-primary)",
             backgroundColor: "transparent",
-            color: "rgba(255,255,255,0.4)",
+            color: "var(--text-muted)",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -102,7 +111,7 @@ export default function Sidebar() {
       </div>
 
       {/* Navigation */}
-      <nav style={{ flex: 1, padding: "12px 12px", display: "flex", flexDirection: "column", gap: 2 }}>
+      <nav style={{ flex: 1, padding: "16px 12px", display: "flex", flexDirection: "column", gap: 4 }}>
         {navigation.map((item) => {
           const isActive =
             item.href === "/dashboard"
@@ -122,49 +131,84 @@ export default function Sidebar() {
                 borderRadius: 8,
                 fontSize: 14,
                 fontWeight: isActive ? 500 : 400,
-                color: isActive ? "#fff" : "rgba(255,255,255,0.5)",
-                backgroundColor: isActive ? "rgba(167,139,250,0.12)" : "transparent",
-                transition: "all 0.15s ease",
+                color: isActive ? "var(--text-primary)" : "var(--text-tertiary)",
+                backgroundColor: isActive ? "var(--accent-bg)" : "transparent",
+                borderLeft: isActive ? "2px solid var(--accent)" : "2px solid transparent",
+                transition: "all 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
               }}
               title={collapsed ? item.name : undefined}
             >
-              <item.icon size={18} style={{ flexShrink: 0, opacity: isActive ? 1 : 0.6 }} />
+              <item.icon size={18} style={{ flexShrink: 0, opacity: isActive ? 1 : 0.55 }} />
               {!collapsed && item.name}
             </Link>
           );
         })}
       </nav>
 
-      {/* User section */}
+      {/* Theme toggle + User section */}
       <div
         style={{
-          padding: collapsed ? "16px" : "16px 20px",
-          borderTop: "1px solid rgba(255,255,255,0.06)",
+          padding: collapsed ? "12px 16px" : "12px 20px",
+          borderTop: "1px solid var(--border-subtle)",
           display: "flex",
-          alignItems: "center",
-          justifyContent: collapsed ? "center" : "flex-start",
+          flexDirection: "column",
           gap: 12,
         }}
       >
-        <div
+        {/* Theme toggle */}
+        <button
+          onClick={toggleTheme}
+          title={theme === "dark" ? "Bytt til lys modus" : "Bytt til mørk modus"}
           style={{
-            width: 32,
-            height: 32,
-            borderRadius: 9999,
-            background: "linear-gradient(135deg, #7c3aed, #a78bfa)",
+            width: collapsed ? 40 : "100%",
+            height: 36,
+            borderRadius: 8,
+            border: "1px solid var(--border-primary)",
+            backgroundColor: "var(--bg-input)",
+            color: "var(--text-secondary)",
             display: "flex",
             alignItems: "center",
-            justifyContent: "center",
+            justifyContent: collapsed ? "center" : "flex-start",
+            gap: 10,
+            padding: collapsed ? 0 : "0 12px",
+            cursor: "pointer",
             fontSize: 13,
-            fontWeight: 600,
-            color: "#fff",
+            transition: "all 0.2s ease",
           }}
         >
-          JH
+          {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
+          {!collapsed && (theme === "dark" ? "Lys modus" : "Mørk modus")}
+        </button>
+
+        {/* User */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: collapsed ? "center" : "flex-start",
+            gap: 12,
+          }}
+        >
+          <div
+            style={{
+              width: 32,
+              height: 32,
+              borderRadius: 9999,
+              background: "var(--accent-gradient)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: 13,
+              fontWeight: 600,
+              color: "#fff",
+            }}
+          >
+            JH
+          </div>
+          {!collapsed && (
+            <span style={{ fontSize: 13, color: "var(--text-tertiary)" }}>Min konto</span>
+          )}
         </div>
-        {!collapsed && (
-          <span style={{ fontSize: 13, color: "rgba(255,255,255,0.5)" }}>Min konto</span>
-        )}
       </div>
     </aside>
   );
