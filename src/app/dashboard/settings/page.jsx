@@ -13,10 +13,10 @@ export default function SettingsPage() {
   return (
     <div style={{ padding: "32px 40px", maxWidth: 900 }}>
       <div style={{ marginBottom: 32 }}>
-        <h1 style={{ fontSize: 28, fontWeight: 600, color: "#fff", margin: 0, marginBottom: 6 }}>
+        <h1 style={{ fontSize: 28, fontWeight: 600, color: "var(--text-primary)", margin: 0, marginBottom: 6 }}>
           Innstillinger
         </h1>
-        <p style={{ fontSize: 15, color: "rgba(255,255,255,0.4)", margin: 0 }}>
+        <p style={{ fontSize: 15, color: "var(--text-tertiary)", margin: 0 }}>
           Administrer arbeidsområde og kontoinnstillinger
         </p>
       </div>
@@ -26,19 +26,19 @@ export default function SettingsPage() {
         style={{
           padding: "24px",
           borderRadius: 14,
-          border: "1px solid rgba(255,255,255,0.08)",
-          backgroundColor: "rgba(255,255,255,0.03)",
+          border: "1px solid var(--border-primary)",
+          backgroundColor: "var(--bg-card)",
           marginBottom: 16,
         }}
       >
         <div className="flex items-center" style={{ gap: 12, marginBottom: 24 }}>
-          <Building size={20} color="#a78bfa" />
-          <h2 style={{ fontSize: 18, fontWeight: 600, color: "#fff", margin: 0 }}>Arbeidsområde</h2>
+          <Building size={20} color="var(--accent)" />
+          <h2 style={{ fontSize: 18, fontWeight: 600, color: "var(--text-primary)", margin: 0 }}>Arbeidsområde</h2>
         </div>
 
         <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
           <div>
-            <label style={{ display: "block", fontSize: 13, color: "rgba(255,255,255,0.5)", marginBottom: 8 }}>
+            <label style={{ display: "block", fontSize: 13, color: "var(--text-secondary)", marginBottom: 8 }}>
               Arbeidsområdenavn
             </label>
             <input
@@ -49,16 +49,16 @@ export default function SettingsPage() {
                 maxWidth: 400,
                 padding: "10px 14px",
                 borderRadius: 10,
-                border: "1px solid rgba(255,255,255,0.1)",
-                backgroundColor: "rgba(255,255,255,0.04)",
-                color: "#fff",
+                border: "1px solid var(--border-primary)",
+                backgroundColor: "var(--bg-input)",
+                color: "var(--text-primary)",
                 fontSize: 14,
                 outline: "none",
               }}
             />
           </div>
           <div>
-            <label style={{ display: "block", fontSize: 13, color: "rgba(255,255,255,0.5)", marginBottom: 8 }}>
+            <label style={{ display: "block", fontSize: 13, color: "var(--text-secondary)", marginBottom: 8 }}>
               Standard språk
             </label>
             <select
@@ -66,9 +66,9 @@ export default function SettingsPage() {
               style={{
                 padding: "10px 14px",
                 borderRadius: 10,
-                border: "1px solid rgba(255,255,255,0.1)",
-                backgroundColor: "rgba(255,255,255,0.04)",
-                color: "#fff",
+                border: "1px solid var(--border-primary)",
+                backgroundColor: "var(--bg-input)",
+                color: "var(--text-primary)",
                 fontSize: 14,
                 outline: "none",
                 cursor: "pointer",
@@ -87,22 +87,22 @@ export default function SettingsPage() {
         style={{
           padding: "24px",
           borderRadius: 14,
-          border: "1px solid rgba(255,255,255,0.08)",
-          backgroundColor: "rgba(255,255,255,0.03)",
+          border: "1px solid var(--border-primary)",
+          backgroundColor: "var(--bg-card)",
           marginBottom: 16,
         }}
       >
         <div className="flex items-center justify-between" style={{ marginBottom: 24 }}>
           <div className="flex items-center" style={{ gap: 12 }}>
-            <Users size={20} color="#a78bfa" />
-            <h2 style={{ fontSize: 18, fontWeight: 600, color: "#fff", margin: 0 }}>Teammedlemmer</h2>
+            <Users size={20} color="var(--accent)" />
+            <h2 style={{ fontSize: 18, fontWeight: 600, color: "var(--text-primary)", margin: 0 }}>Teammedlemmer</h2>
           </div>
           <button
             style={{
               padding: "8px 16px",
               borderRadius: 8,
               border: "none",
-              background: "linear-gradient(135deg, #a78bfa, #7c3aed)",
+              background: "var(--accent-gradient)",
               color: "#fff",
               fontSize: 13,
               fontWeight: 500,
@@ -125,8 +125,8 @@ export default function SettingsPage() {
               style={{
                 padding: "14px 16px",
                 borderRadius: 10,
-                backgroundColor: "rgba(255,255,255,0.03)",
-                border: "1px solid rgba(255,255,255,0.05)",
+                backgroundColor: "var(--bg-card-inner)",
+                border: "1px solid var(--border-subtle)",
               }}
             >
               <div className="flex items-center" style={{ gap: 12 }}>
@@ -135,7 +135,7 @@ export default function SettingsPage() {
                     width: 36,
                     height: 36,
                     borderRadius: 9999,
-                    background: "linear-gradient(135deg, #7c3aed, #a78bfa)",
+                    background: "var(--accent-gradient)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -147,8 +147,8 @@ export default function SettingsPage() {
                   {member.name.split(" ").map((n) => n[0]).join("")}
                 </div>
                 <div>
-                  <div style={{ fontSize: 14, fontWeight: 500, color: "#fff" }}>{member.name}</div>
-                  <div style={{ fontSize: 12, color: "rgba(255,255,255,0.35)" }}>{member.email}</div>
+                  <div style={{ fontSize: 14, fontWeight: 500, color: "var(--text-primary)" }}>{member.name}</div>
+                  <div style={{ fontSize: 12, color: "var(--text-muted)" }}>{member.email}</div>
                 </div>
               </div>
               <span
@@ -156,8 +156,8 @@ export default function SettingsPage() {
                   fontSize: 12,
                   padding: "4px 10px",
                   borderRadius: 6,
-                  backgroundColor: member.role === "Admin" ? "rgba(167,139,250,0.12)" : "rgba(255,255,255,0.06)",
-                  color: member.role === "Admin" ? "#a78bfa" : "rgba(255,255,255,0.5)",
+                  backgroundColor: member.role === "Admin" ? "var(--accent-bg)" : "var(--bg-input)",
+                  color: member.role === "Admin" ? "var(--accent)" : "var(--text-secondary)",
                   fontWeight: 500,
                 }}
               >
@@ -173,14 +173,14 @@ export default function SettingsPage() {
         style={{
           padding: "24px",
           borderRadius: 14,
-          border: "1px solid rgba(255,255,255,0.08)",
-          backgroundColor: "rgba(255,255,255,0.03)",
+          border: "1px solid var(--border-primary)",
+          backgroundColor: "var(--bg-card)",
           marginBottom: 16,
         }}
       >
         <div className="flex items-center" style={{ gap: 12, marginBottom: 24 }}>
-          <Bell size={20} color="#a78bfa" />
-          <h2 style={{ fontSize: 18, fontWeight: 600, color: "#fff", margin: 0 }}>Varsler</h2>
+          <Bell size={20} color="var(--accent)" />
+          <h2 style={{ fontSize: 18, fontWeight: 600, color: "var(--text-primary)", margin: 0 }}>Varsler</h2>
         </div>
 
         <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
@@ -191,15 +191,15 @@ export default function SettingsPage() {
           ].map((notif) => (
             <div key={notif.label} className="flex items-center justify-between">
               <div>
-                <div style={{ fontSize: 14, fontWeight: 500, color: "#fff", marginBottom: 2 }}>{notif.label}</div>
-                <div style={{ fontSize: 12, color: "rgba(255,255,255,0.35)" }}>{notif.description}</div>
+                <div style={{ fontSize: 14, fontWeight: 500, color: "var(--text-primary)", marginBottom: 2 }}>{notif.label}</div>
+                <div style={{ fontSize: 12, color: "var(--text-muted)" }}>{notif.description}</div>
               </div>
               <div
                 style={{
                   width: 44,
                   height: 24,
                   borderRadius: 12,
-                  backgroundColor: notif.enabled ? "#7c3aed" : "rgba(255,255,255,0.1)",
+                  backgroundColor: notif.enabled ? "var(--accent-deep)" : "var(--border-primary)",
                   cursor: "pointer",
                   position: "relative",
                   transition: "background-color 0.2s ease",
@@ -228,13 +228,13 @@ export default function SettingsPage() {
         style={{
           padding: "24px",
           borderRadius: 14,
-          border: "1px solid rgba(255,255,255,0.08)",
-          backgroundColor: "rgba(255,255,255,0.03)",
+          border: "1px solid var(--border-primary)",
+          backgroundColor: "var(--bg-card)",
         }}
       >
         <div className="flex items-center" style={{ gap: 12, marginBottom: 24 }}>
-          <Key size={20} color="#a78bfa" />
-          <h2 style={{ fontSize: 18, fontWeight: 600, color: "#fff", margin: 0 }}>API-nøkler</h2>
+          <Key size={20} color="var(--accent)" />
+          <h2 style={{ fontSize: 18, fontWeight: 600, color: "var(--text-primary)", margin: 0 }}>API-nøkler</h2>
         </div>
 
         <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
@@ -249,16 +249,16 @@ export default function SettingsPage() {
               style={{
                 padding: "14px 16px",
                 borderRadius: 10,
-                backgroundColor: "rgba(255,255,255,0.03)",
-                border: "1px solid rgba(255,255,255,0.05)",
+                backgroundColor: "var(--bg-card-inner)",
+                border: "1px solid var(--border-subtle)",
               }}
             >
               <div className="flex items-center" style={{ gap: 12 }}>
-                <Shield size={16} color="rgba(255,255,255,0.4)" />
+                <Shield size={16} color="var(--text-tertiary)" />
                 <div>
-                  <div style={{ fontSize: 14, fontWeight: 500, color: "#fff" }}>{api.name}</div>
+                  <div style={{ fontSize: 14, fontWeight: 500, color: "var(--text-primary)" }}>{api.name}</div>
                   {api.key && (
-                    <div style={{ fontSize: 12, color: "rgba(255,255,255,0.3)", fontFamily: "monospace" }}>{api.key}</div>
+                    <div style={{ fontSize: 12, color: "var(--text-faint)", fontFamily: "monospace" }}>{api.key}</div>
                   )}
                 </div>
               </div>
@@ -267,8 +267,8 @@ export default function SettingsPage() {
                   fontSize: 12,
                   padding: "4px 10px",
                   borderRadius: 6,
-                  backgroundColor: api.status === "konfigurert" ? "rgba(74,222,128,0.1)" : "rgba(255,255,255,0.06)",
-                  color: api.status === "konfigurert" ? "#4ade80" : "rgba(255,255,255,0.4)",
+                  backgroundColor: api.status === "konfigurert" ? "var(--success-bg)" : "var(--bg-input)",
+                  color: api.status === "konfigurert" ? "var(--success)" : "var(--text-tertiary)",
                   fontWeight: 500,
                 }}
               >

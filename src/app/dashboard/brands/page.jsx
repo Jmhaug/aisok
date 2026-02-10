@@ -18,7 +18,7 @@ export default function BrandsPage() {
   const [searchQuery, setSearchQuery] = useState("");
 
   if (loading) {
-    return <div style={{ padding: "32px 40px", color: "rgba(255,255,255,0.5)" }}>Laster data...</div>;
+    return <div style={{ padding: "32px 40px", color: "var(--text-secondary)" }}>Laster data...</div>;
   }
 
   const filtered = brands.filter(
@@ -32,10 +32,10 @@ export default function BrandsPage() {
       {/* Header */}
       <div className="flex items-center justify-between" style={{ marginBottom: 32 }}>
         <div>
-          <h1 style={{ fontSize: 28, fontWeight: 600, color: "#fff", margin: 0, marginBottom: 6 }}>
+          <h1 style={{ fontSize: 28, fontWeight: 600, color: "var(--text-primary)", margin: 0, marginBottom: 6 }}>
             Merkevarer
           </h1>
-          <p style={{ fontSize: 15, color: "rgba(255,255,255,0.4)", margin: 0 }}>
+          <p style={{ fontSize: 15, color: "var(--text-tertiary)", margin: 0 }}>
             Administrer merkevarer og navnevariasjoner
           </p>
         </div>
@@ -47,7 +47,7 @@ export default function BrandsPage() {
             padding: "10px 20px",
             borderRadius: 10,
             border: "none",
-            background: "linear-gradient(135deg, #a78bfa 0%, #7c3aed 100%)",
+            background: "var(--accent-gradient)",
             color: "#fff",
             fontSize: 14,
             fontWeight: 500,
@@ -69,7 +69,7 @@ export default function BrandsPage() {
       >
         <Search
           size={16}
-          style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", color: "rgba(255,255,255,0.3)" }}
+          style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", color: "var(--text-faint)" }}
         />
         <input
           type="text"
@@ -80,9 +80,9 @@ export default function BrandsPage() {
             width: "100%",
             padding: "10px 14px 10px 40px",
             borderRadius: 10,
-            border: "1px solid rgba(255,255,255,0.1)",
-            backgroundColor: "rgba(255,255,255,0.04)",
-            color: "#fff",
+            border: "1px solid var(--border-primary)",
+            backgroundColor: "var(--bg-input)",
+            color: "var(--text-primary)",
             fontSize: 14,
             outline: "none",
           }}
@@ -107,13 +107,13 @@ export default function BrandsPage() {
               style={{
                 padding: "24px",
                 borderRadius: 14,
-                border: "1px solid rgba(255,255,255,0.08)",
-                backgroundColor: "rgba(255,255,255,0.03)",
+                border: "1px solid var(--border-primary)",
+                backgroundColor: "var(--bg-card)",
                 cursor: "pointer",
                 transition: "border-color 0.15s ease",
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.borderColor = "rgba(167,139,250,0.3)")}
-              onMouseLeave={(e) => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)")}
+              onMouseEnter={(e) => (e.currentTarget.style.borderColor = "var(--accent-bg-hover)")}
+              onMouseLeave={(e) => (e.currentTarget.style.borderColor = "var(--border-primary)")}
             >
               {/* Top row */}
               <div className="flex items-start justify-between" style={{ marginBottom: 20 }}>
@@ -135,11 +135,11 @@ export default function BrandsPage() {
                     {brand.logo}
                   </div>
                   <div>
-                    <div style={{ fontSize: 16, fontWeight: 600, color: "#fff" }}>{brand.name}</div>
+                    <div style={{ fontSize: 16, fontWeight: 600, color: "var(--text-primary)" }}>{brand.name}</div>
                     <a
                       href={`https://${brand.domain}`}
                       className="flex items-center no-underline"
-                      style={{ fontSize: 13, color: "rgba(255,255,255,0.35)", gap: 4, marginTop: 2 }}
+                      style={{ fontSize: 13, color: "var(--text-muted)", gap: 4, marginTop: 2 }}
                     >
                       {brand.domain} <ExternalLink size={11} />
                     </a>
@@ -150,9 +150,9 @@ export default function BrandsPage() {
                     width: 32,
                     height: 32,
                     borderRadius: 8,
-                    border: "1px solid rgba(255,255,255,0.1)",
+                    border: "1px solid var(--border-primary)",
                     backgroundColor: "transparent",
-                    color: "rgba(255,255,255,0.4)",
+                    color: "var(--text-tertiary)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -166,18 +166,18 @@ export default function BrandsPage() {
               {/* Score */}
               <div className="flex items-end justify-between" style={{ marginBottom: 20 }}>
                 <div>
-                  <div style={{ fontSize: 12, color: "rgba(255,255,255,0.35)", marginBottom: 4 }}>
+                  <div style={{ fontSize: 12, color: "var(--text-muted)", marginBottom: 4 }}>
                     Synlighetspoeng
                   </div>
                   <div className="flex items-end" style={{ gap: 8 }}>
-                    <span style={{ fontSize: 36, fontWeight: 700, color: "#fff", lineHeight: 1 }}>
+                    <span style={{ fontSize: 36, fontWeight: 700, color: "var(--text-primary)", lineHeight: 1 }}>
                       {brand.visibilityScore}
                     </span>
                     <span
                       className="flex items-center"
                       style={{
                         fontSize: 13,
-                        color: isPositive ? "#4ade80" : "#f87171",
+                        color: isPositive ? "var(--success)" : "var(--error)",
                         gap: 2,
                         paddingBottom: 4,
                       }}
@@ -188,10 +188,10 @@ export default function BrandsPage() {
                   </div>
                 </div>
                 <div style={{ textAlign: "right" }}>
-                  <div style={{ fontSize: 12, color: "rgba(255,255,255,0.35)", marginBottom: 4 }}>
+                  <div style={{ fontSize: 12, color: "var(--text-muted)", marginBottom: 4 }}>
                     Denne uken
                   </div>
-                  <div style={{ fontSize: 14, color: "rgba(255,255,255,0.7)" }}>
+                  <div style={{ fontSize: 14, color: "var(--text-secondary)" }}>
                     {brand.mentionsThisWeek} omtaler · {brand.citationsThisWeek} siteringer
                   </div>
                 </div>
@@ -204,7 +204,7 @@ export default function BrandsPage() {
                     width: "100%",
                     height: 6,
                     borderRadius: 3,
-                    backgroundColor: "rgba(255,255,255,0.06)",
+                    backgroundColor: "var(--border-secondary)",
                     overflow: "hidden",
                   }}
                 >
@@ -213,7 +213,7 @@ export default function BrandsPage() {
                       width: `${brand.visibilityScore}%`,
                       height: "100%",
                       borderRadius: 3,
-                      background: "linear-gradient(90deg, #7c3aed 0%, #a78bfa 100%)",
+                      background: "var(--accent-gradient)",
                       transition: "width 0.5s ease",
                     }}
                   />
@@ -222,7 +222,7 @@ export default function BrandsPage() {
 
               {/* Name variations */}
               <div>
-                <div style={{ fontSize: 12, color: "rgba(255,255,255,0.35)", marginBottom: 8 }}>
+                <div style={{ fontSize: 12, color: "var(--text-muted)", marginBottom: 8 }}>
                   Navnevariasjoner
                 </div>
                 <div className="flex flex-wrap" style={{ gap: 6 }}>
@@ -233,8 +233,8 @@ export default function BrandsPage() {
                         fontSize: 12,
                         padding: "3px 10px",
                         borderRadius: 6,
-                        backgroundColor: "rgba(255,255,255,0.06)",
-                        color: "rgba(255,255,255,0.5)",
+                        backgroundColor: "var(--bg-input)",
+                        color: "var(--text-secondary)",
                       }}
                     >
                       {v}
